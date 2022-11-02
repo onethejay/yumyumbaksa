@@ -5,14 +5,13 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "TB_PLACE")
 data class PlaceEntity(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val idx: Long,
     var placeName: String,
     val placePhone: String,
