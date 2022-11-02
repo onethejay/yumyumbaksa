@@ -11,8 +11,8 @@ import javax.persistence.*
 @Table(name = "TB_PLACE")
 data class PlaceEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idx: Long,
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val idx: Long?,
     var placeName: String,
     val placePhone: String,
     val placeDetailInfo: String,
