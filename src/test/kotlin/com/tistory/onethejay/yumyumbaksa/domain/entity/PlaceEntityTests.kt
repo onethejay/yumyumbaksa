@@ -96,7 +96,7 @@ internal class PlaceEntityTests {
 
         //삭제된 데이터 조회
         try {
-            placeRepository.findById(1L).orElseThrow()
+            placeRepository.findById(1L).get()
         } catch (_: NoSuchElementException) {
             println("### 데이터가 없습니다. ###")
         }
