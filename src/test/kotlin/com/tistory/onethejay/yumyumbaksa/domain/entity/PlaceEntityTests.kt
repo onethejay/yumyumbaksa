@@ -51,7 +51,7 @@ internal class PlaceEntityTests {
 
         val savedEntity = placeRepository.save(placeEntity)
 
-        assertThat(savedEntity.idx).isEqualTo(idx)
+        assertThat(savedEntity.placeName).isEqualTo("성수동 카레맛집")
     }
 
     @DisplayName("2. TB_PLACE SELECT 테스트")
@@ -100,6 +100,5 @@ internal class PlaceEntityTests {
         } catch (_: NoSuchElementException) {
             println("### 데이터가 없습니다. ###")
         }
-
     }
 }
