@@ -1,6 +1,16 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/yumyumbaksa?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Seoul
+    username: baksa
+    password: baksapw1!
+
+  jpa:
+    open-in-view: false
+    show-sql: true
