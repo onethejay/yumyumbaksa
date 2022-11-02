@@ -14,11 +14,11 @@ import javax.persistence.Table
 data class PlaceEntity(
     @Id
     val idx: Long,
-    val placeName: String,
+    var placeName: String,
     val placePhone: String,
     val placeDetailInfo: String,
     val placePhotoUrl1: String? = null,
-    val placePhotoUrl2: String? = null ,
+    val placePhotoUrl2: String? = null,
     val placePhotoUrl3: String? = null,
     val placePhotoUrl4: String? = null,
     val placePhotoUrl5: String? = null,
