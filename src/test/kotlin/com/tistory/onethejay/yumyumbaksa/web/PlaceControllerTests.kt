@@ -31,13 +31,11 @@ internal class PlaceControllerTests {
     }
 
 
-    @DisplayName("1. 컨트롤러 호출 테스트")
+    @DisplayName("1. 맛집 전체목록 호출 테스트")
     @Test
     fun test_1(){
         //when
-        val result: ResultActions = mockMvc.perform(get("/api/v1/place")
-            .contentType(MediaType.APPLICATION_JSON))
-
+        val result: ResultActions = mockMvc.perform(get("/api/v1/place"))
 
         //then
         val mvcResult: MvcResult = result.andDo(MockMvcResultHandlers.print())
@@ -45,5 +43,20 @@ internal class PlaceControllerTests {
             .andReturn()
 
         assertThat(mvcResult.response.getContentAsString(Charsets.UTF_8)).contains("성수동 카레맛집")
+    }
+
+    @DisplayName("2. 특정 맛집 호출 테스트")
+    @Test
+    fun test_2(){
+        //when
+        val idx: String = "13"
+        val result: ResultActions = mockMvc.perform(get("/api/v1/place/$idx"))
+
+        //then
+        val mvcResult: MvcResult = result.andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk)
+            .andReturn()
+
+        assertThat(mvcResult.response.getContentAsString(Charsets.UTF_8)).contains(idx)
     }
 }
