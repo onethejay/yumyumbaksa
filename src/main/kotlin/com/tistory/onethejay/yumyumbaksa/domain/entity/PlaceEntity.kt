@@ -1,5 +1,7 @@
 package com.tistory.onethejay.yumyumbaksa.domain.entity
 
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -8,6 +10,8 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "TB_PLACE")
 data class PlaceEntity(
     @Id
@@ -15,7 +19,7 @@ data class PlaceEntity(
     val idx: Long?,
     var placeName: String,
     var placePhone: String,
-    var placeDetailInfo: String,
+    var placeDetailInfo: String?,
     var placePhotoUrl1: String? = null,
     var placePhotoUrl2: String? = null,
     var placePhotoUrl3: String? = null,

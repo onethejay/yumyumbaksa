@@ -7,7 +7,7 @@ data class PlaceSaveRequestDto(
     val idx: Long?,
     var placeName: String,
     val placePhone: String,
-    val placeDetailInfo: String,
+    val placeDetailInfo: String? = null,
     val placePhotoUrl1: String? = null,
     val placePhotoUrl2: String? = null,
     val placePhotoUrl3: String? = null,

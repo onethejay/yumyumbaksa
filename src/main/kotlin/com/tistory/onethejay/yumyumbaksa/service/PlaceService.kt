@@ -1,9 +1,11 @@
 package com.tistory.onethejay.yumyumbaksa.service
 
+import com.tistory.onethejay.yumyumbaksa.domain.dto.PlaceSaveResponseDto
 import com.tistory.onethejay.yumyumbaksa.domain.dto.PlaceSaveRequestDto
 import com.tistory.onethejay.yumyumbaksa.domain.entity.PlaceEntity
 import com.tistory.onethejay.yumyumbaksa.domain.entity.PlaceRepository
 import org.springframework.stereotype.Service
+import kotlin.streams.toList
 
 @Service
 class PlaceService(
@@ -11,23 +13,70 @@ class PlaceService(
 ) {
 
     //목록 가져오기
-    fun getList(): List<PlaceEntity> {
-        return placeRepository.findAll()
+    fun getList(): List<PlaceSaveResponseDto> {
+        val placeEntities: List<PlaceEntity> = placeRepository.findAll()
+
+        return placeEntities.stream()
+            .map {
+                PlaceSaveResponseDto(
+                    idx = it.idx,
+                    placeName = it.placeName,
+                    placePhone = it.placePhone,
+                    placeDetailInfo = it.placeDetailInfo,
+                    placePhotoUrl1 = it.placePhotoUrl1,
+                    placePhotoUrl2 = it.placePhotoUrl2,
+                    placePhotoUrl3 = it.placePhotoUrl3,
+                    placePhotoUrl4 = it.placePhotoUrl4,
+                    placePhotoUrl5 = it.placePhotoUrl5,
+                    serviceYn = it.serviceYn,
+                    useYn = it.useYn
+                )
+            }
+            .toList()
     }
 
     //조회된 하나만 가져오기
-    fun getOne(idx: Long): PlaceEntity {
-        return placeRepository.findById(idx).orElseThrow()
+    fun getOne(idx: Long): PlaceSaveResponseDto {
+        val placeEntity: PlaceEntity = placeRepository.findById(idx).orElseThrow()
+
+        return PlaceSaveResponseDto(
+            idx = placeEntity.idx,
+            placeName = placeEntity.placeName,
+            placePhone = placeEntity.placePhone,
+            placeDetailInfo = placeEntity.placeDetailInfo,
+            placePhotoUrl1 = placeEntity.placePhotoUrl1,
+            placePhotoUrl2 = placeEntity.placePhotoUrl2,
+            placePhotoUrl3 = placeEntity.placePhotoUrl3,
+            placePhotoUrl4 = placeEntity.placePhotoUrl4,
+            placePhotoUrl5 = placeEntity.placePhotoUrl5,
+            serviceYn = placeEntity.serviceYn,
+            useYn = placeEntity.useYn
+        )
     }
 
     //데이터 생성
-    fun create(placeSaveRequestDto: PlaceSaveRequestDto): PlaceEntity {
-        return placeRepository.save(placeSaveRequestDto.toEntity())
+    fun create(placeSaveRequestDto: PlaceSaveRequestDto): PlaceSaveResponseDto {
+        val placeEntity = placeRepository.save(placeSaveRequestDto.toEntity())
+
+        return PlaceSaveResponseDto(
+            idx = placeEntity.idx,
+            placeName = placeEntity.placeName,
+            placeDetailInfo = placeEntity.placeDetailInfo,
+            placePhone = placeEntity.placeName,
+            placePhotoUrl1 = placeEntity.placePhotoUrl1,
+            placePhotoUrl2 = placeEntity.placePhotoUrl2,
+            placePhotoUrl3 = placeEntity.placePhotoUrl3,
+            placePhotoUrl4 = placeEntity.placePhotoUrl4,
+            placePhotoUrl5 = placeEntity.placePhotoUrl5,
+            serviceYn = placeEntity.serviceYn,
+            useYn = placeEntity.useYn
+        )
+
     }
 
     //데이터 수정
-    fun update(placeSaveRequestDto: PlaceSaveRequestDto): PlaceEntity {
-        return placeRepository.findById(placeSaveRequestDto.idx ?: 0)
+    fun update(placeSaveRequestDto: PlaceSaveRequestDto): PlaceSaveResponseDto {
+        val placeEntity: PlaceEntity = placeRepository.findById(placeSaveRequestDto.idx ?: 0)
             .map {
                 it.placeName = placeSaveRequestDto.placeName
                 it.placePhone = placeSaveRequestDto.placePhone
@@ -43,6 +92,20 @@ class PlaceService(
                 placeRepository.save(it)
             }
             .orElseThrow()
+
+        return PlaceSaveResponseDto(
+            idx = placeEntity.idx,
+            placeName = placeEntity.placeName,
+            placeDetailInfo = placeEntity.placeDetailInfo,
+            placePhone = placeEntity.placePhone,
+            placePhotoUrl1 = placeEntity.placePhotoUrl1,
+            placePhotoUrl2 = placeEntity.placePhotoUrl2,
+            placePhotoUrl3 = placeEntity.placePhotoUrl3,
+            placePhotoUrl4 = placeEntity.placePhotoUrl4,
+            placePhotoUrl5 = placeEntity.placePhotoUrl5,
+            serviceYn = placeEntity.serviceYn,
+            useYn = placeEntity.useYn
+        )
     }
 
     //데이터 삭제
