@@ -9,7 +9,7 @@ import kotlin.streams.toList
 
 @Service
 class PlaceService(
-    val placeRepository: PlaceRepository
+    private val placeRepository: PlaceRepository
 ) {
 
     //목록 가져오기
